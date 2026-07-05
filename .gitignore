@@ -1,0 +1,17 @@
+target/
+*.class
+.idea/
+*.iml
+.vscode/
+.DS_Store
+*.log
+# IDE Settings
+.idea/
+*.iml
+
+# Build output
+target/
+**/target/
+
+# OS files
+.DS_Store
