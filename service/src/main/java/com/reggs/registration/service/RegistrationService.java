@@ -7,7 +7,7 @@ import com.reggs.registration.persistence.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 /**
- * This is where the Default-group, DB-hitting validation step from
+ * This is where my Default-group, DB-hitting validation step from
  * Project 1 actually lives: existsByUsername / existsByEmail. It runs
  * AFTER Jakarta Validation's FirstCheck and SecondCheck groups have
  * already passed in the web layer's @GroupSequence - by the time a
