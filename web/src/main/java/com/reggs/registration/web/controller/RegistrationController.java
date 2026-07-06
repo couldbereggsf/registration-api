@@ -52,7 +52,7 @@ public class RegistrationController {
                 registered.createdAt()
         );
 
-        // 201 Created + Location header, per the JBE Episode 1 discussion
+        // 201 Created + Location header, references the JBE Episode 1 discussion
         // on returning a URI to the newly created resource via UriComponentsBuilder.
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

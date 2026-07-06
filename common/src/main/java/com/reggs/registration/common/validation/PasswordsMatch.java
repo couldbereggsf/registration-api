@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * {@code confirmPassword} match on whatever class it is applied to.
  *
  * This is the exact "does password match confirmPassword?" example from
- * the JBE study notes - a cross-field check that only makes sense once
+ * my JBE study notes - a cross-field check that only makes sense once
  * both fields are confirmed non-blank, which is why it belongs in
  * SecondCheck rather than FirstCheck.
  *

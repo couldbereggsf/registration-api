@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * Mirrors JBE Episode 3's "we need to mock the actual repository call"
- * approach - the repository is mocked here, not hit for real, so we can
+ * approach, therefore, the repository is mocked here, not hit for real, so we can
  * control exactly what existsByUsername/existsByEmail return and assert
  * the service reacts correctly in both the happy path and each failure
  * path.
@@ -35,17 +35,17 @@ class RegistrationServiceTest {
 
     @Test
     void shouldRegisterUser_whenUsernameAndEmailAreFree() {
-        RegistrationCommand command = new RegistrationCommand("reagan", "reagan@example.com", "S3cret!", 25);
+        RegistrationCommand command = new RegistrationCommand("reagan", "reaganfwambaa@gmail.com", "S3cret!", 25);
 
         when(userRepository.existsByUsername("reagan")).thenReturn(false);
-        when(userRepository.existsByEmail("reagan@example.com")).thenReturn(false);
+        when(userRepository.existsByEmail("reaganfwambaa@gmail.com")).thenReturn(false);
         when(userRepository.save(any(User.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         RegisteredUser result = registrationService.register(command);
 
         assertThat(result.username()).isEqualTo("reagan");
-        assertThat(result.email()).isEqualTo("reagan@example.com");
+        assertThat(result.email()).isEqualTo("reaganfwambaa@gmail.com");
     }
 
     @Test

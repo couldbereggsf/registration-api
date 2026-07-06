@@ -67,7 +67,7 @@ class RegistrationControllerTest {
         String payload = """
                 {
                   "username": "reagan",
-                  "email": "reagan@example.com",
+                  "email": "reaganfwambaa@gmail.com",
                   "password": "S3cret!",
                   "confirmPassword": "DifferentPassword!",
                   "age": 25
@@ -86,7 +86,7 @@ class RegistrationControllerTest {
     void shouldReturn201_whenPayloadIsFullyValid() throws Exception {
         when(registrationService.register(any()))
                 .thenReturn(new com.reggs.registration.service.RegisteredUser(
-                        1L, "reagan", "reagan@example.com", java.time.Instant.now()));
+                        1L, "reagan", "reaganfwambaa@gmail.com", java.time.Instant.now()));
 
         String payload = """
                 {

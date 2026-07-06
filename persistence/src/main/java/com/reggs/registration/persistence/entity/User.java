@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 
 /**
- * The persisted User record - same pattern as the JBE Episode 1 entity
+ * The persisted User record - tried the same pattern as the JBE Episode 1 entity
  * layer (identity primary key, username/password/email columns), now
  * isolated in its own module.
  *
@@ -74,5 +74,8 @@ public class User {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public void setUsername(String reagan) {
     }
 }
