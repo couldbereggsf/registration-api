@@ -17,13 +17,12 @@ import java.util.stream.Collectors;
  * exceptions thrown anywhere in any controller, so individual endpoints
  * never need their own try/catch.
  *
- * Important nuance carried over from the JBE notes: validation failures
+ * Important nuance carried over from my JBE notes: validation failures
  * triggered by @Valid on a @RequestBody arrive as
  * MethodArgumentNotValidException - NOT ConstraintViolationException.
- * The latter is what you'd get from validating method parameters or
+ * The latter is what I'd get from validating method parameters or
  * class-level constraints outside of @RequestBody. They are different
- * exception types with no convenient shared validation superclass, which
- * is exactly what caused confusion in the live session.
+ * exception types with no convenient shared validation superclass.
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -33,7 +32,7 @@ public class GlobalExceptionHandler {
      * @GroupSequence fails - whichever group failed first. Because of
      * fail-fast group ordering, this will only ever contain errors from
      * the single group that stopped the sequence (see the GroupSequence
-     * concerns section of the JBE study guide).
+     * concerns section of my JBE study guide).
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<APIResponse<Void>> handleValidationFailure(MethodArgumentNotValidException ex) {
@@ -62,8 +61,8 @@ public class GlobalExceptionHandler {
 
     /**
      * Catch-all safety net. Deliberately never exposes ex.getMessage()
-     * here - that could leak DB or implementation details, exactly the
-     * concern raised in the JBE notes about error message design.
+     * here, because that could leak DB or implementation details, exactly the
+     * concern raised in my JBE notes about error message design.
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<APIResponse<Void>> handleUnexpected(Exception ex) {

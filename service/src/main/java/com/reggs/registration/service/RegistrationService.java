@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * request reaches this service, we know the shape of the data is sound,
  * and we only need to ask "does this already exist?"
  *
- * Early-return pattern throughout, per the JBE notes: "if the user
+ * Early-return pattern throughout, per my JBE notes: "if the user
  * doesn't exist, we return empty / fail fast" rather than nested
  * branching.
  */
@@ -49,8 +49,8 @@ public class RegistrationService {
     }
 
     /**
-     * Placeholder only - exactly the same caveat flagged in the JBE
-     * notes about plain-text checks being temporary. Swap this for
+     * Placeholder only which is exactly the same caveat flagged in the JBE
+     * notes about plain-text checks being temporary. I will swap this for
      * Spring Security's PasswordEncoder (BCrypt) as the real next step.
      */
     private String hashPassword(String rawPassword) {

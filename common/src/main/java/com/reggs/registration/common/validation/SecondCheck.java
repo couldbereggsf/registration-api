@@ -7,7 +7,7 @@ package com.reggs.registration.common.validation;
  *
  * These are still in-memory checks (no database hit), but they are more
  * expensive than a simple @NotBlank, and some of them are meaningless to
- * run against a blank field. Hence they run second, never first.
+ * run against a blank field. Therefore, they run second, never first.
  */
 public interface SecondCheck {
 }

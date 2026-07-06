@@ -39,7 +39,7 @@ public class APIResponse<T> {
     /**
      * Use inside @ExceptionHandler methods. Deliberately takes a plain
      * String, not the raw exception - we never want to leak stack traces
-     * or DB error text back to the client (see JBE notes on "user-friendly
+     * or DB error text back to the client (see my JBE notes on "user-friendly
      * error message" vs "exposing implementation details").
      */
     public static APIResponse<Void> failure(String error) {
