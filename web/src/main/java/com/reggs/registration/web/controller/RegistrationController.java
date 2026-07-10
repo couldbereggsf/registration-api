@@ -34,7 +34,8 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public ResponseEntity<APIResponse<RegisteredUserResponse>> register(
-            @Validated(RegistrationRequest.OrderedValidation.class) @Valid @RequestBody RegistrationRequest request
+            @Validated(RegistrationRequest.OrderedValidation.class)
+            @RequestBody RegistrationRequest request
     ) {
         RegistrationCommand command = new RegistrationCommand(
                 request.getUsername(),

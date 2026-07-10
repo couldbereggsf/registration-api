@@ -1,14 +1,16 @@
 package com.reggs.registration.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reggs.registration.persistence.repository.UserRepository;
 import com.reggs.registration.service.RegistrationService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * confidence that the class-level validator works at all.
  */
 @WebMvcTest(controllers = com.reggs.registration.web.controller.RegistrationController.class)
+@ExtendWith(SpringExtension.class)
 class RegistrationControllerTest {
 
     @Autowired
@@ -35,11 +38,8 @@ class RegistrationControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private RegistrationService registrationService;
-
-    @MockBean
-    private UserRepository userRepository;
 
     @Test
     void shouldReturn400_whenAllFieldsAreBlank_stage1Only() throws Exception {
