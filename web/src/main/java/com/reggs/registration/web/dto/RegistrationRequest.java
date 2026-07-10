@@ -6,9 +6,8 @@ import com.reggs.registration.common.validation.PasswordFieldsAware;
 import com.reggs.registration.common.validation.PasswordsMatch;
 import com.reggs.registration.common.validation.SecondCheck;
 import jakarta.validation.GroupSequence;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
+import jakarta.validation.groups.Default;
 
 /**
  * The DTO from Project 1 in the JBE study guide.
@@ -30,21 +29,28 @@ import jakarta.validation.constraints.NotNull;
 @PasswordsMatch(groups = SecondCheck.class)
 public class RegistrationRequest implements PasswordFieldsAware {
 
-    @NotBlank(message = "Username is required", groups = FirstCheck.class)
+    @NotBlank(message = "Username is required",
+            groups = FirstCheck.class)
     private String username;
 
-    @NotBlank(message = "Email is required", groups = FirstCheck.class)
-    @Email(message = "Email must be a valid email address", groups = FirstCheck.class)
+    @NotBlank(message = "Email is required",
+            groups = FirstCheck.class)
+    @Email(message = "Email must be a valid email address",
+            groups = FirstCheck.class)
     private String email;
 
-    @NotBlank(message = "Password is required", groups = FirstCheck.class)
+    @NotBlank(message = "Password is required",
+            groups = FirstCheck.class)
     private String password;
 
-    @NotBlank(message = "Confirm password is required", groups = FirstCheck.class)
+    @NotBlank(message = "Confirm password is required",
+            groups = FirstCheck.class)
     private String confirmPassword;
 
     @NotNull(message = "Age is required", groups = FirstCheck.class)
-    @MinimumAge(value = 18, message = "You must be at least 18 years old", groups = SecondCheck.class)
+    @MinimumAge(value = 18,
+            message = "You must be at least 18 years old",
+            groups = SecondCheck.class)
     private Integer age;
 
     public RegistrationRequest() {
