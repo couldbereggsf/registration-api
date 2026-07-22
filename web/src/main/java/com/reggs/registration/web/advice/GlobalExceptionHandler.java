@@ -3,6 +3,7 @@ package com.reggs.registration.web.advice;
 import com.reggs.registration.common.exception.EmailAlreadyExistsException;
 import com.reggs.registration.common.exception.UsernameAlreadyExistsException;
 import com.reggs.registration.common.response.APIResponse;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.time.Instant;
 import java.util.stream.Collectors;
 
 /**
@@ -35,21 +37,27 @@ public class GlobalExceptionHandler {
      * concerns section of my JBE study guide).
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<APIResponse<Void>> handleValidationFailure(MethodArgumentNotValidException ex) {
-        String combinedMessage = ex.getBindingResult().getFieldErrors().stream()
-                .map(FieldError::getDefaultMessage)
+    public ResponseEntity<APIResponse> handleValidation(MethodArgumentNotValidException ex) {
+
+        // 1. Get all validation errors from the binding result
+        String errorMsg = ex.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .map(error -> error.getDefaultMessage()) // or method reference
                 .collect(Collectors.joining("; "));
+        // If no messages (shouldn't happen), provide a default
+        if (errorMsg.isEmpty()) {
+            errorMsg = "Validation failed";
+        }
 
-        return ResponseEntity
-                .badRequest()
-                .body(APIResponse.failure(combinedMessage));
-    }
+        // 2. Build the API response.
+        // Assuming my APIResponse constructor is: (Object data, String error, String message, Instant timestamp)
+        // Based on my JSON output: {"data":null,"error":"...","message":null,"timestamp":"..."}
+        APIResponse response = new APIResponse(null, errorMsg, null, Instant.now());
 
-    @ExceptionHandler(UsernameAlreadyExistsException.class)
-    public ResponseEntity<APIResponse<Void>> handleUsernameTaken(UsernameAlreadyExistsException ex) {
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(APIResponse.failure(ex.getMessage()));
+        // 3. Return 400 Bad Request
+        ResponseEntity<APIResponse> body = ResponseEntity.badRequest().body(APIResponse.failure(errorMsg));
+        return body;
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
